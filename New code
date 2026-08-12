@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crunchy Corner | Where Every Bite Crunches Right</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f4ed;color:#30251d;font-family:Arial,sans-serif}
+.header{height:68px;background:#fff;display:flex;align-items:center;padding:8px 12px;gap:10px;border-bottom:1px solid #e5ded3;position:sticky;top:0;z-index:10}
+.logo{width:42px;height:42px;border-radius:50%;background:#f2c75c;border:2px solid #6d3e20;display:flex;align-items:center;justify-content:center;font-size:22px}
+.brand{flex:1;font-weight:800;font-size:15px}
+.tag{display:block;font-size:9px;font-weight:500;color:#8b654b;margin-top:2px}
+.cart{font-size:21px;position:relative}
+.badge{position:absolute;right:-6px;top:-7px;background:#b94c2c;color:#fff;width:17px;height:17px;border-radius:50%;font-size:10px;text-align:center;padding-top:3px}
+.hero{margin:0;background:linear-gradient(135deg,#f5d76e,#c88743 55%,#6f3c22);height:170px;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#fff}
+.hero h1{margin:0;font-family:Georgia,serif;font-size:30px;text-shadow:1px 2px 4px #4a2817}
+.hero p{margin:8px 0 0;font-size:13px}
+.wrap{padding:14px 11px;max-width:620px;margin:auto}
+.panel{background:#efebe3;border-radius:11px;padding:12px 10px;box-shadow:0 1px 4px #ddd}
+.price-row{display:flex;gap:7px}
+input,select{border:1px solid #ccc;background:#fff;border-radius:6px;padding:11px;font-size:13px;outline:none}
+.price-row input{width:34%}
+button{border:0;background:#c49a70;color:#fff;border-radius:6px;padding:11px 15px;font-weight:700}
+.price-row button{flex:1}
+h3{font-size:15px;margin:15px 0 8px;border-bottom:1px solid #777;display:inline-block;padding-bottom:4px}
+.radio{display:block;margin:9px 0;font-size:12px}
+.radio input{margin:0 6px 0 0}
+.category{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #ddd;font-size:13px}
+.cat-icon{width:25px;height:25px;border-radius:5px;background:#f3dca0;display:flex;align-items:center;justify-content:center}
+.reset{width:100%;margin-top:17px}
+.search{width:100%;margin-top:12px}
+.section-title{font-size:19px;font-weight:800;margin:17px 0 10px}
+.card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 5px #ddd;margin-bottom:18px}
+.product-photo{height:190px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#e6b45f,#6e3921);color:#fff;font-size:70px}
+.card-body{padding:10px}
+.product-name{font-weight:800;font-size:15px}
+.sub{font-size:11px;color:#666;margin:4px 0 7px}
+.price{font-weight:800;font-size:15px}
+.old{font-size:11px;color:#999;text-decoration:line-through;margin-left:5px}
+.card-actions{display:flex;justify-content:flex-end;margin-top:9px}
+.add{font-size:12px}
+.empty{display:none;text-align:center;padding:20px;color:#777}
+footer{margin-top:45px;background:#c49a70;color:#fff;text-align:center;padding:14px 10px;font-size:10px;line-height:1.6}
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#30251d;color:#fff;padding:10px 16px;border-radius:20px;font-size:12px;display:none;z-index:20}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">🍪</div>
+  <div class="brand">
+    CRUNCHY CORNER
+    <span class="tag">Where Every Bite Crunches Right</span>
+  </div>
+  <div>🇮🇳 EN⌄</div>
+  <div class="cart">🛍️<span class="badge" id="cartCount">0</span></div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>CRUNCHY CORNER</h1>
+    <p>Homemade • Fresh • Delicious</p>
+    <p>🍫 Chocolates &nbsp; 🧇 Waffles &nbsp; 🍰 Cakes &nbsp; 🍪 Treats</p>
+  </div>
+</section>
+
+<main class="wrap">
+
+<section class="panel">
+  <div class="price-row">
+    <input id="minPrice" type="number" placeholder="Min">
+    <input id="maxPrice" type="number" placeholder="Max">
+    <button onclick="applyFilters()">Apply</button>
+  </div>
+
+  <h3>All Categories</h3>
+  <div class="category"><span class="cat-icon">🍫</span>Chocolates</div>
+  <div class="category"><span class="cat-icon">🧇</span>Waffles</div>
+  <div class="category"><span class="cat-icon">🍰</span>Cakes</div>
+  <div class="category"><span class="cat-icon">🧁</span>Cupcakes</div>
+  <div class="category"><span class="cat-icon">🍩</span>Donuts</div>
+  <div class="category"><span class="cat-icon">🍪</span>Cookies</div>
+  <div class="category"><span class="cat-icon">🥮</span>Kunafa Bites</div>
+  <div class="category"><span class="cat-icon">🥤</span>Desserts</div>
+
+  <button class="reset" onclick="resetFilters()">Reset Filters</button>
+</section>
+
+<input class="search" id="search" type="search" placeholder="🔎  Search For Products" oninput="applyFilters()">
+
+<select class="search" id="range" onchange="applyFilters()">
+  <option value="">Select Price Range</option>
+  <option value="0-100">Below ₹100</option>
+  <option value="100-300">₹100 - ₹300</option>
+  <option value="300-600">₹300 - ₹600</option>
+  <option value="600-999999">Above ₹600</option>
+</select>
+
+<div class="section-title">All Items</div>
+<div id="products">
+
+<article class="card" data-name="Vanilla Cupcakes" data-price="240">
+  <div class="product-photo">🧁</div>
+  <div class="card-body">
+    <div class="product-name">Vanilla Cupcakes</div>
+    <div class="sub">6 pieces</div>
+    <div class="price">₹240 <span class="old">₹280</span></div>
+    <div class="card-actions"><button class="add" onclick="addCart()">🛍 Add to Cart</button></div>
+  </div>
+</article>
+
+<article class="card" data-name="Chocochip Cupcakes" data-price="300">
+  <div class="product-photo">🧁🍫</div>
+  <div class="card-body">
+    <div class="product-name">Chocochip Cupcakes</div>
+    <div class="sub">6 pieces</div>
+    <div class="price">₹300</div>
+    <div class="card-actions"><button class="add" onclick="addCart()">🛍 Add to Cart</button></div>
+  </div>
+</article>
+
+<article class="card" data-name="Chocochip Muffins" data-price="90">
+  <div class="product-photo">🧁</div>
+  <div class="card-body">
+    <div class="product-name">Chocochip Muffins</div>
+    <div class="sub">2 pieces</div>
+    <div class="price">₹90</div>
+    <div class="card-actions"><button class="add" onclick="addCart()">🛍 Add to Cart</button></div>
+  </div>
+</article>
+
+<article class="card" data-name="Classic Donuts" data-price="240">
+  <div class="product-photo">🍩</div>
+  <div class="card-body">
+    <div class="product-name">Classic Donuts</div>
+    <div class="sub">6 pieces</div>
+    <div class="price">₹240</div>
+    <div class="card-actions"><button class="add" onclick="addCart()">🛍 Add to Cart</button></div>
+  </div>
+</article>
+
+<article class="card" data-name="Chocolate Bomboloni" data-price="300">
+  <div class="product-photo">🍫</div>
+  <div class="card-body">
+    <div class="product-name">Chocolate Bomboloni</div>
+    <div class="sub">Freshly filled</div>
+    <div class="price">₹300</div>
+    <div class="card-actions"><button class="add" onclick="addCart()">🛍 Add to Cart</button></div>
+  </div>
+</article>
+
+<article class="card" data-name="Kunafa Bliss Bites" data-price="99">
+  <div class="product-photo">🥮🍫</div>
+  <div class="card-body">
+    <div class="product-name">Kunafa Bliss Bites</div>
+    <div class="sub">4 bites</div>
+    <div class="price">₹99</div>
+    <div class="card-actions"><button class="add" onclick="addCart()">🛍 Add to Cart</button></div>
+  </div>
+</article>
+
+</div>
+<div id="empty" class="empty">No products found.</div>
+</main>
+
+<footer>
+  📍 Crunchy Corner<br>
+  Fresh homemade treats • Made with love<br><br>
+  © 2026 Crunchy Corner. All Rights Reserved.
+</footer>
+
+<div id="toast" class="toast">Added to cart ✓</div>
+
+<script>
+let cart=0;
+function addCart(){
+  cart++;
+  document.getElementById('cartCount').textContent=cart;
+  const t=document.getElementById('toast');
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none',1200);
+}
+function applyFilters(){
+  const min=parseFloat(document.getElementById('minPrice').value)||0;
+  const max=parseFloat(document.getElementById('maxPrice').value)||Infinity;
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  const range=document.getElementById('range').value;
+  let shown=0;
+  document.querySelectorAll('.card').forEach(card=>{
+    const price=Number(card.dataset.price);
+    let ok=price>=min && price<=max && card.dataset.name.toLowerCase().includes(q);
+    if(range){
+      const [a,b]=range.split('-').map(Number);
+      ok=ok && price>=a && price<=b;
+    }
+    card.style.display=ok?'block':'none';
+    if(ok) shown++;
+  });
+  document.getElementById('empty').style.display=shown?'none':'block';
+}
+function resetFilters(){
+  document.getElementById('minPrice').value='';
+  document.getElementById('maxPrice').value='';
+  document.getElementById('search').value='';
+  document.getElementById('range').value='';
+  applyFilters();
+}
+</script>
+</body>
+</html>
